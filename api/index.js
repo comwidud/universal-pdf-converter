@@ -87,10 +87,10 @@ const upload = multer({
   }
 });
 
-// Serve static files
-app.use(express.static('public'));
-app.use('/output', express.static('output'));
-app.use('/uploads', express.static('uploads'));
+// Serve static files from correct path in Vercel
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/output', express.static(outputDir));
+app.use('/uploads', express.static(uploadsDir));
 
 // Helper function to detect and convert text encoding
 function detectAndConvertEncoding(buffer, filePath) {

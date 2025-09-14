@@ -63,3 +63,4 @@ build/
 
 # Local development
 .next/
+.vercel
