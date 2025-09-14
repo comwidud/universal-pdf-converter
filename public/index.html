@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal PDF 변환기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Universal PDF 변환기</h1>
+            <p>모든 파일 형식을 하나의 PDF로 변환하고 압축할 수 있습니다</p>
+        </header>
+
+        <main>
+            <!-- File Upload Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">📁</div>
+                        <h3>파일을 드래그하거나 클릭하여 선택하세요</h3>
+                        <p>이미지, 문서, PDF 등 모든 파일 형식 지원 (최대 20개, 각 파일 최대 50MB)</p>
+                        <input type="file" id="fileInput" multiple hidden>
+                        <button class="select-btn" onclick="document.getElementById('fileInput').click()">
+                            파일 선택
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- File List Section -->
+            <section class="file-list-section" id="fileListSection" style="display: none;">
+                <h3>업로드된 파일 목록</h3>
+                <div class="file-list" id="fileList"></div>
+
+                <div class="conversion-controls">
+                    <div class="compression-section">
+                        <div class="compression-type">
+                            <label for="compressionType">압축 방식:</label>
+                            <select id="compressionType" onchange="toggleCustomCompression()">
+                                <option value="low">낮음 (95% 품질)</option>
+                                <option value="medium" selected>보통 (80% 품질)</option>
+                                <option value="high">높음 (60% 품질)</option>
+                                <option value="custom">사용자 정의</option>
+                            </select>
+                        </div>
+
+                        <div class="custom-compression" id="customCompression" style="display: none;">
+                            <div class="size-input-group">
+                                <label for="targetSize">목표 파일 크기:</label>
+                                <input type="number" id="targetSize" placeholder="예: 1024" min="10" max="10240">
+                                <select id="sizeUnit">
+                                    <option value="KB">KB</option>
+                                    <option value="MB">MB</option>
+                                </select>
+                            </div>
+
+                            <div class="ratio-slider">
+                                <label for="compressionRatio">압축률: <span id="ratioValue">70%</span></label>
+                                <input type="range" id="compressionRatio" min="10" max="95" value="70" oninput="updateRatioValue()">
+                                <div class="ratio-labels">
+                                    <span>최대 압축</span>
+                                    <span>원본 품질</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="size-preview" id="sizePreview" style="display: none;">
+                            <div class="size-info">
+                                <div class="original-size">원본: <span id="originalSize">-</span></div>
+                                <div class="estimated-size">예상: <span id="estimatedSize">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="convert-btn" id="convertBtn" onclick="convertToPDF()">
+                        PDF로 변환
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">변환 중...</p>
+                </div>
+            </section>
+
+            <!-- Download Section -->
+            <section class="download-section" id="downloadSection" style="display: none;">
+                <div class="success-message">
+                    <div class="success-icon">✅</div>
+                    <h3>PDF 변환이 완료되었습니다!</h3>
+                    <div class="compression-result" id="compressionResult">
+                        <div class="size-comparison">
+                            <div class="size-item">
+                                <span class="size-label">원본 크기:</span>
+                                <span class="size-value" id="finalOriginalSize">-</span>
+                            </div>
+                            <div class="size-item">
+                                <span class="size-label">압축 후:</span>
+                                <span class="size-value" id="finalCompressedSize">-</span>
+                            </div>
+                            <div class="size-item savings">
+                                <span class="size-label">절약:</span>
+                                <span class="size-value" id="finalSavings">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="download-btn" id="downloadBtn">PDF 다운로드</button>
+                    <button class="reset-btn" onclick="resetApp()">새로 시작</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
