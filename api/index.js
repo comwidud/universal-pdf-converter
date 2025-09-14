@@ -7,7 +7,6 @@ const sharp = require('sharp');
 const mammoth = require('mammoth');
 const XLSX = require('xlsx');
 const mime = require('mime-types');
-const Jimp = require('jimp');
 const iconv = require('iconv-lite');
 const jschardet = require('jschardet');
 
@@ -17,8 +16,14 @@ const PORT = process.env.PORT || 3001;
 // Use temporary directory for Vercel
 const uploadsDir = '/tmp/uploads';
 const outputDir = '/tmp/output';
-fs.ensureDirSync(uploadsDir);
-fs.ensureDirSync(outputDir);
+
+// Safely ensure directories exist
+try {
+  fs.ensureDirSync(uploadsDir);
+  fs.ensureDirSync(outputDir);
+} catch (error) {
+  console.warn('Directory creation warning:', error.message);
+}
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({

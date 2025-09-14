@@ -7,7 +7,7 @@ const sharp = require('sharp');
 const mammoth = require('mammoth');
 const XLSX = require('xlsx');
 const mime = require('mime-types');
-const Jimp = require('jimp');
+// Jimp removed for serverless compatibility
 const iconv = require('iconv-lite');
 const jschardet = require('jschardet');
 
