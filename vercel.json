@@ -2,10 +2,16 @@
   "version": 2,
   "name": "universal-pdf-converter",
   "functions": {
-    "server.js": {
+    "api/*.js": {
       "maxDuration": 30
     }
   },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
   }
