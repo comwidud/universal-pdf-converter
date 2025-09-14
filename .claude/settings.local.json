@@ -10,7 +10,8 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(where gh)",
-      "Bash(vercel:*)"
+      "Bash(vercel:*)",
+      "WebFetch(domain:universal-pdf-converter-4pu6pnd02-comwis-projects.vercel.app)"
     ],
     "deny": [],
     "ask": []
